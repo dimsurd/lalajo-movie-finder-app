@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card, Container, Modal } from "react-bootstrap";
 import axios from "axios";
+import Loaders from "../utils/loader";
 
 const FormsMovie = () => {
   const [dataTitle, setDataTitle] = useState("");
   const [dataMovies, setDataMovies] = useState([]);
   const [dataMoviesDetail, setDataMoviesDetail] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -15,6 +17,7 @@ const FormsMovie = () => {
   useEffect(() => {
     let isFlushed = false;
     if (!isFlushed) {
+      setLoading(true);
       axios({
         method: "GET",
         url: `${process.env.REACT_APP_BASEURL}&t=${dataTitle}`,
@@ -24,6 +27,9 @@ const FormsMovie = () => {
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     }
 
@@ -33,7 +39,7 @@ const FormsMovie = () => {
   }, [dataTitle]);
 
   //   End of Fetch Daata from API
-
+  if (loading) return <Loaders />;
   return (
     <React.Fragment>
       <div className="container mt-10 mx-auto md:px-80">
