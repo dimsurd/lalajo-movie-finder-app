@@ -83,7 +83,7 @@ const FormsMovie = () => {
       <p className="text-2xl text-center mt-6  font-medium">Results</p>
       <div className=" mx-auto">
         <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-4 justify-items-center">
-          {/* <h1>{dataMovies}</h1> */}
+          {/* <h1>{dataMovies}test</h1> */}
           {Array.isArray(dataMovies)
             ? dataMovies.map((data, i) => {
                 return (
@@ -95,7 +95,11 @@ const FormsMovie = () => {
                         alt="Movie Poster"
                       />
                       <Card.Body>
-                        <Card.Title>{data.Title}</Card.Title>
+                        <Card.Title>
+                          {data.Response === "True"
+                            ? data.Title
+                            : "Data Not Found"}
+                        </Card.Title>
                         <Card.Text>{data.Plot}</Card.Text>
                         <Button
                           variant="primary w-full"
